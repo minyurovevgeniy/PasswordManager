@@ -6,6 +6,9 @@ namespace PasswordManager
 {
     internal class PasswordSettings
     {
-        string alphabetChars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+        string alphabetUpperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        string alphabetLowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+        string digits = "1234567890";
+        string specialChars = "!?.,:;-_@#$%";
     }
 }
