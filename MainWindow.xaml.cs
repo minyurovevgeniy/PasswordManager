@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,24 @@ namespace PasswordManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<string> MyDynamicItems { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+
+            // Initialize the collection
+            MyDynamicItems = new ObservableCollection<string>();
+
+            // Dynamically add items anywhere in your logic
+            MyDynamicItems.Add("Добавление");
+            MyDynamicItems.Add("Изменение");
+            MyDynamicItems.Add("Удаление");
+
+            // Set the DataContext to this class for binding
+
+            mode.ItemsSource = MyDynamicItems;
+
+            
         }
     }
 }

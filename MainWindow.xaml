@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PasswordManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="470" Width="850">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="45"/>
             <RowDefinition Height="280"/>
             <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"></ColumnDefinition>
@@ -46,7 +46,7 @@
         <TextBlock Grid.Column="0" Margin="92,0,92,0" Grid.Row="1" TextWrapping="Wrap" Text="Комментарии" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Пароли" VerticalAlignment="Center"/>
         <TextBlock HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="Режим работы" VerticalAlignment="Center" Margin="22,0,0,0" Grid.Column="1"/>
-        <ComboBox x:Name="mode" HorizontalAlignment="Center" Grid.Column="1" Margin="0,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="180"/>
+        <ComboBox x:Name="mode" HorizontalAlignment="Center" Grid.Column="1" Margin="0,10,0,0" Grid.Row="4" Width="180" Height="22" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
