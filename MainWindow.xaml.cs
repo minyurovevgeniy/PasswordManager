@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -41,8 +42,20 @@ namespace PasswordManager
 
         private void action_Click(object sender, RoutedEventArgs e)
         {
-            if (mode.SelectedIndex == 0)
+            if (Regex.Replace(comment.Text, @"\s+", "").Equals(""))
             {
+                MessageBox.Show("Введите комментарий");
+                return;
+            }
+
+            if (comment.Text.Equals(""))
+            {
+                MessageBox.Show("Введите комментарий");
+                return;
+            }
+
+            if (mode.SelectedIndex == 0)
+            {                
                 passwords.Add(new PasswordItem(comment.Text, ""));
                 comments.Items.Add(comment.Text);
                 comment.Text = "";
