@@ -92,7 +92,7 @@ namespace PasswordManager
         {
             StringBuilder chars= new StringBuilder();
 
-            UserSettings userSettings = new(true,true,true,true);
+            UserSettings userSettings = new(true,true,true,true,5);
 
             if (userSettings.AlphabetUpperCaseLetters)
             {
@@ -116,7 +116,7 @@ namespace PasswordManager
 
             foreach (PasswordItem password in passwords)
             {
-                password.generatePassword(chars.ToString(), 5);
+                password.generatePassword(chars.ToString(), userSettings.PasswordLength);
             }
 
             passwordsListView.Items.Clear();

@@ -40,12 +40,22 @@ namespace PasswordManager
             }
         }
 
-        public UserSettings(bool _alphabetUpperCaseLetters, bool _alphabetLowerCaseLetters, bool _digits, bool _specialChars)
+        int passwordLength;
+        public int PasswordLength
+        {
+            get
+            {
+                return passwordLength;
+            }
+        }
+
+        public UserSettings(bool _alphabetUpperCaseLetters, bool _alphabetLowerCaseLetters, bool _digits, bool _specialChars, int _passwordLength)
         {
             alphabetUpperCaseLetters = _alphabetUpperCaseLetters;
             alphabetLowerCaseLetters = _alphabetLowerCaseLetters;
             digits = _digits;
             specialChars = _specialChars;
+            this.passwordLength = _passwordLength;
         }
     }
 }
