@@ -18,6 +18,7 @@ namespace PasswordManager
     public partial class MainWindow : Window
     {
         public ObservableCollection<string> MyDynamicItems { get; set; }
+        public List<PasswordItem> passwords = new List<PasswordItem>();
         public MainWindow()
         {
             InitializeComponent();
@@ -35,6 +36,52 @@ namespace PasswordManager
             mode.ItemsSource = MyDynamicItems;
 
             
+        }
+
+        private void action_Click(object sender, RoutedEventArgs e)
+        {
+            if (mode.SelectedIndex == 0)
+            {
+                passwords.Add(new PasswordItem(comment.Text, ""));
+                comments.Items.Add(comment.Text);
+                comment.Text = "";
+            }
+            else if (mode.SelectedIndex == 1 & comments.SelectedIndex>=0) 
+            {
+                passwords[comments.SelectedIndex].Comment = comment.Text;
+                comments.Items.Clear();
+
+                foreach (var password in passwords)
+                {
+                    comments.Items.Add(password.Comment);
+                }
+            }
+            else if (mode.SelectedIndex == 2 & comments.SelectedIndex >= 0)
+            {
+                passwords.RemoveAt(comments.SelectedIndex);
+                comments.Items.Clear();
+
+                foreach (var password in passwords)
+                {
+                    comments.Items.Add(password.Comment);
+                }
+            }
+        }
+
+        private void mode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (mode.SelectedIndex == 0)
+            {
+                action.Content = "Добавление";
+            }
+            else if (mode.SelectedIndex == 1)
+            {
+                action.Content = "Изменение";
+            }
+            else if (mode.SelectedIndex == 2)
+            {
+                action.Content = "Удаление";
+            }
         }
     }
 }

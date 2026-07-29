@@ -19,7 +19,7 @@
             <ColumnDefinition Width="50*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.Column="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="270" VerticalAlignment="Top" Margin="5,5,5,5">
+        <ListView x:Name="comments"  Grid.Column="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="270" VerticalAlignment="Top" Margin="5,5,5,5">
             <!--<ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -41,12 +41,12 @@
             </MenuItem>
             <MenuItem Header="Настройки"/>
         </Menu>
-        <Button Grid.Column="1" x:Name="action" Content="Добавить" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="180" />
-        <TextBox x:Name="Comment" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="380" Height="25"/>
+        <Button Grid.Column="1" x:Name="action" Content="Добавить" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="180" Click="action_Click" />
+        <TextBox x:Name="comment" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="380" Height="25"/>
         <TextBlock Grid.Column="0" Margin="92,0,92,0" Grid.Row="1" TextWrapping="Wrap" Text="Комментарии" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Пароли" VerticalAlignment="Center"/>
         <TextBlock HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="Режим работы" VerticalAlignment="Center" Margin="22,0,0,0" Grid.Column="1"/>
-        <ComboBox x:Name="mode" HorizontalAlignment="Center" Grid.Column="1" Margin="0,10,0,0" Grid.Row="4" Width="180" Height="22" VerticalAlignment="Top"/>
-
+        <ComboBox x:Name="mode" HorizontalAlignment="Center" Grid.Column="1" Margin="0,10,0,0" Grid.Row="4" Width="180" Height="22" VerticalAlignment="Top" SelectionChanged="mode_SelectionChanged"/>
+        <Button x:Name="generate" Content="Генерировать" HorizontalAlignment="Center" Margin="0,25,0,0" Grid.Row="4" VerticalAlignment="Top" RenderTransformOrigin="-0.833,0.69"/>
     </Grid>
 </Window>

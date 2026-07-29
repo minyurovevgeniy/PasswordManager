@@ -4,18 +4,32 @@ using System.Text;
 
 namespace PasswordManager
 {
-    internal class PasswordItem
+    public class PasswordItem
     {
-        string comment;
-        string password;
+        string _comment;
+        public string Comment
+        { get
+            {
+                return _comment;
+            }
+
+            set
+            {
+                _comment = value;
+
+            }
+        }
+
+
+        string _password="";
 
         public PasswordItem(string comment, string password)
         {
-            this.comment = comment;
-            this.password = password;
+            this._comment = comment;
+            this._password = password;
         }
 
-        void generatePassword()
+        void generatePassword(string chars)
         {
 
         }
