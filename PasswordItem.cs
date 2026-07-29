@@ -8,7 +8,8 @@ namespace PasswordManager
     {
         string _comment;
         public string Comment
-        { get
+        { 
+            get
             {
                 return _comment;
             }
@@ -20,8 +21,20 @@ namespace PasswordManager
             }
         }
 
+        string _password = "";
+        public string Password
+        {
+            get
+            {
+                return _password;
+            }
 
-        string _password="";
+            set
+            {
+                _password = value;
+
+            }
+        }
 
         public PasswordItem(string comment, string password)
         {
@@ -29,9 +42,18 @@ namespace PasswordManager
             this._password = password;
         }
 
-        void generatePassword(string chars)
+        public void generatePassword(string chars,int passwordLength)
         {
+            StringBuilder sb = new StringBuilder();
+            Random rand = new Random();
 
+            for (int i = 0; i < passwordLength; i++)
+            {
+                int maxLetterCount = rand.Next(chars.Length);
+                sb.Append(chars[maxLetterCount]);
+            }
+
+            _password = sb.ToString();
         }
     }
 }

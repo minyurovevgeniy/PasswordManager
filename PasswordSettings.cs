@@ -4,11 +4,11 @@ using System.Text;
 
 namespace PasswordManager
 {
-    internal class PasswordSettings
+    public static class PasswordSettings
     {
-        string alphabetUpperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        string alphabetLowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
-        string digits = "1234567890";
-        string specialChars = "!?.,:;-_@#$%";
+        public const string alphabetUpperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public const string alphabetLowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+        public const string digits = "1234567890";
+        public const string specialChars = "!?.,:;-_@#$%";
     }
 }

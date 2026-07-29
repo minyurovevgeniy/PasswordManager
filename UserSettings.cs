@@ -6,10 +6,39 @@ namespace PasswordManager
 {
     class UserSettings
     {
-        bool alphabetUpperCaseLetters;
+        private bool alphabetUpperCaseLetters;
+        public bool AlphabetUpperCaseLetters
+        {  get
+            {
+                return alphabetUpperCaseLetters;
+            }
+        }
         bool alphabetLowerCaseLetters;
+        public bool AlphabetLowerCaseLetters
+        {
+            get
+            {
+                return alphabetLowerCaseLetters;
+            }
+        }
+        
         bool digits;
+        public bool Digits
+        {
+            get
+            {
+                return digits;
+            }
+        }
+
         bool specialChars;
+        public bool SpecialChars
+        {
+            get
+            {
+                return specialChars;
+            }
+        }
 
         public UserSettings(bool _alphabetUpperCaseLetters, bool _alphabetLowerCaseLetters, bool _digits, bool _specialChars)
         {

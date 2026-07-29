@@ -19,9 +19,13 @@ namespace PasswordManager
     {
         public ObservableCollection<string> MyDynamicItems { get; set; }
         public List<PasswordItem> passwords = new List<PasswordItem>();
+
+        UserSettings settings;
         public MainWindow()
         {
             InitializeComponent();
+
+            settings = new UserSettings(true, true, false, false);
 
             // Initialize the collection
             MyDynamicItems = new ObservableCollection<string>();
@@ -81,6 +85,44 @@ namespace PasswordManager
             else if (mode.SelectedIndex == 2)
             {
                 action.Content = "Удаление";
+            }
+        }
+
+        private void generate_Click(object sender, RoutedEventArgs e)
+        {
+            StringBuilder chars= new StringBuilder();
+
+            UserSettings userSettings = new(true,true,true,true);
+
+            if (userSettings.AlphabetUpperCaseLetters)
+            {
+                chars.Append(PasswordSettings.alphabetUpperCaseLetters);
+            }
+
+            if (userSettings.AlphabetLowerCaseLetters)
+            {
+                chars.Append(PasswordSettings.alphabetLowerCaseLetters);
+            }
+
+            if (userSettings.Digits)
+            {
+                chars.Append(PasswordSettings.digits);
+            }
+
+            if (userSettings.SpecialChars)
+            {
+                chars.Append(PasswordSettings.specialChars);
+            }
+
+            foreach (PasswordItem password in passwords)
+            {
+                password.generatePassword(chars.ToString(), comments.Items.Count);
+            }
+
+            foreach (var password in passwords)
+            {
+                passwordsListView.Items.Clear();
+                passwordsListView.Items.Add(password.Password);
             }
         }
     }

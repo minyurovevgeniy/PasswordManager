@@ -26,7 +26,7 @@
                 </GridView>
             </ListView.View> -->
         </ListView>
-        <ListView Grid.Column="1" Margin="5" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <ListView x:Name="passwordsListView" Grid.Column="1" Margin="5" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <!--<ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -47,6 +47,6 @@
         <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Пароли" VerticalAlignment="Center"/>
         <TextBlock HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="Режим работы" VerticalAlignment="Center" Margin="22,0,0,0" Grid.Column="1"/>
         <ComboBox x:Name="mode" HorizontalAlignment="Center" Grid.Column="1" Margin="0,10,0,0" Grid.Row="4" Width="180" Height="22" VerticalAlignment="Top" SelectionChanged="mode_SelectionChanged"/>
-        <Button x:Name="generate" Content="Генерировать" HorizontalAlignment="Center" Margin="0,25,0,0" Grid.Row="4" VerticalAlignment="Top" RenderTransformOrigin="-0.833,0.69"/>
+        <Button x:Name="generate" Content="Генерировать" HorizontalAlignment="Center" Margin="0,25,0,5" Grid.Row="4" RenderTransformOrigin="-0.833,0.69" Click="generate_Click"/>
     </Grid>
 </Window>
