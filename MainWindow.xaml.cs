@@ -20,12 +20,12 @@ namespace PasswordManager
         public ObservableCollection<string> MyDynamicItems { get; set; }
         public List<PasswordItem> passwords = new List<PasswordItem>();
 
-        UserSettings settings;
+        UserSettings userSettings;
         public MainWindow()
         {
             InitializeComponent();
 
-            settings = new UserSettings(true, true, false, false);
+            userSettings = new UserSettings(true, true, false, false,5);
 
             // Initialize the collection
             MyDynamicItems = new ObservableCollection<string>();
@@ -36,10 +36,7 @@ namespace PasswordManager
             MyDynamicItems.Add("Удаление");
 
             // Set the DataContext to this class for binding
-
             mode.ItemsSource = MyDynamicItems;
-
-            
         }
 
         private void action_Click(object sender, RoutedEventArgs e)
@@ -76,15 +73,15 @@ namespace PasswordManager
         {
             if (mode.SelectedIndex == 0)
             {
-                action.Content = "Добавление";
+                action.Content = "Добавить";
             }
             else if (mode.SelectedIndex == 1)
             {
-                action.Content = "Изменение";
+                action.Content = "Изменить";
             }
             else if (mode.SelectedIndex == 2)
             {
-                action.Content = "Удаление";
+                action.Content = "Удалить";
             }
         }
 
@@ -92,7 +89,7 @@ namespace PasswordManager
         {
             StringBuilder chars= new StringBuilder();
 
-            UserSettings userSettings = new(true,true,true,true,5);
+            userSettings = new(true,true,true,true,5);
 
             if (userSettings.AlphabetUpperCaseLetters)
             {
