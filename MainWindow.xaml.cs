@@ -116,12 +116,12 @@ namespace PasswordManager
 
             foreach (PasswordItem password in passwords)
             {
-                password.generatePassword(chars.ToString(), comments.Items.Count);
+                password.generatePassword(chars.ToString(), 5);
             }
 
+            passwordsListView.Items.Clear();
             foreach (var password in passwords)
             {
-                passwordsListView.Items.Clear();
                 passwordsListView.Items.Add(password.Password);
             }
         }

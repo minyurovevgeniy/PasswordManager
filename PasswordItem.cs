@@ -49,8 +49,7 @@ namespace PasswordManager
 
             for (int i = 0; i < passwordLength; i++)
             {
-                int maxLetterCount = rand.Next(chars.Length);
-                sb.Append(chars[maxLetterCount]);
+                sb.Append(chars[rand.Next(chars.Length)]);
             }
 
             _password = sb.ToString();
