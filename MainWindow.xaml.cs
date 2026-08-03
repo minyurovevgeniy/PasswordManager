@@ -32,9 +32,9 @@ namespace PasswordManager
             MyDynamicItems = new ObservableCollection<string>();
 
             // Dynamically add items anywhere in your logic
-            MyDynamicItems.Add("Добавление");
-            MyDynamicItems.Add("Изменение");
-            MyDynamicItems.Add("Удаление");
+            MyDynamicItems.Add("Добавление комментария и пароля");
+            MyDynamicItems.Add("Изменение комментария");
+            MyDynamicItems.Add("Удаление комментария и пароля");
 
             // Set the DataContext to this class for binding
             mode.ItemsSource = MyDynamicItems;
@@ -42,6 +42,24 @@ namespace PasswordManager
 
         private void action_Click(object sender, RoutedEventArgs e)
         {
+            if (password.Text.Equals(""))
+            {
+                MessageBox.Show("Введите пароль");
+                return;
+            }
+
+            if (Regex.Replace(password.Text, @"\s+", "").Equals(""))
+            {
+                MessageBox.Show("Введите пароль");
+                return;
+            }
+
+            if (comment.Text.Equals(""))
+            {
+                MessageBox.Show("Введите комментарий");
+                return;
+            }
+
             if (Regex.Replace(comment.Text, @"\s+", "").Equals(""))
             {
                 MessageBox.Show("Введите комментарий");
@@ -55,8 +73,8 @@ namespace PasswordManager
             }
 
             if (mode.SelectedIndex == 0)
-            {                
-                passwords.Add(new PasswordItem(comment.Text, ""));
+            {
+                passwords.Add(new PasswordItem(comment.Text, password.Text));
                 comments.Items.Add(comment.Text);
                 comment.Text = "";
             }
@@ -78,6 +96,7 @@ namespace PasswordManager
                 foreach (var password in passwords)
                 {
                     comments.Items.Add(password.Comment);
+                    passwordsListView.Items.Add(password.Password);
                 }
             }
         }
@@ -86,15 +105,15 @@ namespace PasswordManager
         {
             if (mode.SelectedIndex == 0)
             {
-                action.Content = "Добавить";
+                action.Content = "Добавить комментарий и пароль";
             }
             else if (mode.SelectedIndex == 1)
             {
-                action.Content = "Изменить";
+                action.Content = "Изменить комментарий";
             }
             else if (mode.SelectedIndex == 2)
             {
-                action.Content = "Удалить";
+                action.Content = "Удалить комментарий и пароль";
             }
         }
 
