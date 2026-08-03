@@ -42,6 +42,7 @@ namespace PasswordManager
             this._password = password;
         }
 
+        /*
         public void generatePassword(string chars,int passwordLength)
         {
             StringBuilder sb = new StringBuilder();
@@ -54,5 +55,6 @@ namespace PasswordManager
 
             _password = sb.ToString();
         }
+        */
     }
 }

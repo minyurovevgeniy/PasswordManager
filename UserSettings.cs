@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PasswordManager
 {
-    class UserSettings
+    public class UserSettings
     {
         private bool alphabetUpperCaseLetters;
         public bool AlphabetUpperCaseLetters
