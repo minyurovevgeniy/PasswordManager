@@ -38,6 +38,7 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Создать"/>
                 <MenuItem Header="Открыть"/>
+                <MenuItem x:Name="saveMenuItem" Header="Сохранить" Click="saveMenuItem_Click"/>
                 <MenuItem Header="Закрыть"/>
             </MenuItem>
             <MenuItem Header="Настройки"/>

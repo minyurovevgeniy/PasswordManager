@@ -80,12 +80,12 @@ namespace PasswordManager
             }
             else if (mode.SelectedIndex == 1 & comments.SelectedIndex>=0) 
             {
-                passwords[comments.SelectedIndex].Comment = comment.Text;
+                passwords[comments.SelectedIndex].comment = comment.Text;
                 comments.Items.Clear();
 
                 foreach (var password in passwords)
                 {
-                    comments.Items.Add(password.Comment);
+                    comments.Items.Add(password.comment);
                 }
             }
             else if (mode.SelectedIndex == 2 & comments.SelectedIndex >= 0)
@@ -95,8 +95,8 @@ namespace PasswordManager
 
                 foreach (var password in passwords)
                 {
-                    comments.Items.Add(password.Comment);
-                    passwordsListView.Items.Add(password.Password);
+                    comments.Items.Add(password.comment);
+                    passwordsListView.Items.Add(password.password);
                 }
             }
         }
@@ -120,6 +120,17 @@ namespace PasswordManager
         private void generate_Click(object sender, RoutedEventArgs e)
         {
             password.Text = PasswordGenerator.generatePassword(userSettings, 5);
+        }
+
+        private void saveMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            
+            var inputDialog = new InputWindow("Сохранение");
+            if (inputDialog.ShowDialog() == true)
+            {
+                string result = inputDialog.InputText;
+                // Используйте введенный текст
+            }
         }
     }
 }

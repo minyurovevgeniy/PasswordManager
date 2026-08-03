@@ -6,8 +6,8 @@ namespace PasswordManager
 {
     public class PasswordItem
     {
-        string comment;
-        string password = "";
+        public string comment;
+        public string password = "";
 
         public PasswordItem(string comment, string password)
         {
