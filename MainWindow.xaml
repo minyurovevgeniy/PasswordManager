@@ -37,7 +37,7 @@
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Margin="0,0,0,1">
             <MenuItem Header="Файл">
                 <MenuItem Header="Создать"/>
-                <MenuItem Header="Открыть"/>
+                <MenuItem x:Name="openMenuItem" Header="Открыть" Click="openMenuItem_Click"/>
                 <MenuItem x:Name="saveMenuItem" Header="Сохранить" Click="saveMenuItem_Click"/>
                 <MenuItem Header="Закрыть"/>
             </MenuItem>

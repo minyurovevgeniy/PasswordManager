@@ -9,6 +9,11 @@ namespace PasswordManager
         public string comment;
         public string password = "";
 
+
+        public PasswordItem()
+        {
+            
+        }
         public PasswordItem(string comment, string password)
         {
             this.comment = comment;
