@@ -100,40 +100,7 @@ namespace PasswordManager
 
         private void generate_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder chars= new StringBuilder();
-
-            userSettings = new(true,true,true,true,5);
-
-            if (userSettings.AlphabetUpperCaseLetters)
-            {
-                chars.Append(PasswordSettings.alphabetUpperCaseLetters);
-            }
-
-            if (userSettings.AlphabetLowerCaseLetters)
-            {
-                chars.Append(PasswordSettings.alphabetLowerCaseLetters);
-            }
-
-            if (userSettings.Digits)
-            {
-                chars.Append(PasswordSettings.digits);
-            }
-
-            if (userSettings.SpecialChars)
-            {
-                chars.Append(PasswordSettings.specialChars);
-            }
-
-            foreach (PasswordItem password in passwords)
-            {
-                password.generatePassword(chars.ToString(), userSettings.PasswordLength);
-            }
-
-            passwordsListView.Items.Clear();
-            foreach (var password in passwords)
-            {
-                passwordsListView.Items.Add(password.Password);
-            }
+            password.Text = PasswordGenerator.generatePassword(userSettings, 5);
         }
     }
 }
