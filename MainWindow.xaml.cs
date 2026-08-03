@@ -124,12 +124,11 @@ namespace PasswordManager
 
         private void saveMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            
-            var inputDialog = new InputWindow("Сохранение");
-            if (inputDialog.ShowDialog() == true)
+            string entered = "";
+            var dialog = new InputWindow("Введите пароль");
+            if (dialog.ShowDialog() == true)
             {
-                string result = inputDialog.InputText;
-                // Используйте введенный текст
+               entered = dialog.Result; // Получаем результат   
             }
         }
     }
