@@ -64,8 +64,8 @@ namespace PasswordManager
                 }
 
                 passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordTextBox.Text});
-                
-                comments.Items.Add(commentTextBox.Text);
+
+                commentsListView.Items.Add(commentTextBox.Text);
                 passwordsListView.Items.Add(passwordTextBox.Text);
 
                 commentTextBox.Text = "";
@@ -74,7 +74,7 @@ namespace PasswordManager
             // Изменение комментария
             if (mode.SelectedIndex == 1)
             {
-                if (comments.SelectedIndex >= 0)
+                if (commentsListView.SelectedIndex >= 0)
                 {
                     if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
                     {
@@ -82,12 +82,12 @@ namespace PasswordManager
                         return;
                     }
 
-                    passwordList[comments.SelectedIndex].comment = commentTextBox.Text;
-                    comments.Items.Clear();
+                    passwordList[commentsListView.SelectedIndex].comment = commentTextBox.Text;
+                    commentsListView.Items.Clear();
 
                     foreach (var password in passwordList)
                     {
-                        comments.Items.Add(password.comment);
+                        commentsListView.Items.Add(password.comment);
                     }
                 }
                 else
@@ -123,14 +123,14 @@ namespace PasswordManager
             // Удаление комментария и пароля
             if (mode.SelectedIndex == 3)
             {
-                if (comments.SelectedIndex >= 0)
+                if (commentsListView.SelectedIndex >= 0)
                 {
-                    passwordList.RemoveAt(comments.SelectedIndex);
-                    comments.Items.Clear();
+                    passwordList.RemoveAt(commentsListView.SelectedIndex);
+                    commentsListView.Items.Clear();
 
                     foreach (var password in passwordList)
                     {
-                        comments.Items.Add(password.comment);
+                        commentsListView.Items.Add(password.comment);
                         passwordsListView.Items.Add(password.password);
                     }
                 }
@@ -172,6 +172,8 @@ namespace PasswordManager
 
         private void saveMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            // Окно для ввода мастер-пароля
+            string entered = "";
             SHA256 sha256 = SHA256.Create();
             
             // Convert the input string to a byte array
@@ -219,11 +221,11 @@ namespace PasswordManager
                 // Compute the hash
                 byte[] hashBytes = SHA256.HashData(inputBytes);
                 passwordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);
-                comments.Items.Clear();
+                commentsListView.Items.Clear();
                 passwordsListView.Items.Clear();
                 foreach (PasswordItem passwordItem in passwordList)
                 {
-                    comments.Items.Add(passwordItem.comment);
+                    commentsListView.Items.Add(passwordItem.comment);
                     passwordsListView.Items.Add(passwordItem.password);
                 }
             }

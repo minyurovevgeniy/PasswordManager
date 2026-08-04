@@ -20,7 +20,7 @@
             <ColumnDefinition Width="50*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <ListView x:Name="comments"  Grid.Column="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="270" VerticalAlignment="Top" Margin="5,5,5,5">
+        <ListView x:Name="commentsListView"  Grid.Column="0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="270" VerticalAlignment="Top" Margin="5,5,5,5">
             <!--<ListView.View>
                 <GridView>
                     <GridViewColumn/>
