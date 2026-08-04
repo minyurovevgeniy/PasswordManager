@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows.Input;
 using System.Xml.Serialization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PasswordManager
 {
-    internal static class Cryptography
+    internal static class CryptographyClass
     {
+        
         /// <summary>
         /// Сериализует список в JSON, шифрует и сохраняет в файл.
         /// Формат файла: [IV (12 байт)][AuthTag (16 байт)][CipherData]
@@ -20,23 +24,32 @@ namespace PasswordManager
             // Шаг 1: Сериализация списка в JSON-строку
             var options = new JsonSerializerOptions
             {
-                WriteIndented = false, // Компактный JSON для экономии места
-                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+                WriteIndented = true,              // Красивый отформатированный JSON (для файлов/логов)
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase // Опционально: поля в camelCase]
             };
 
-            string jsonString = JsonSerializer.Serialize(data, options);
-            byte[] jsonBytes = Encoding.UTF8.GetBytes(jsonString);
+            string jsonArray = JsonSerializer.Serialize(data, options);
+            byte[] jsonBytes = Encoding.UTF8.GetBytes(jsonArray);
 
+            const int tagSize = 16;
+                
             // Шаг 2: Шифрование (AES-GCM)
-            using (var aes = new AesGcm(Key))
+            using (var aes = new AesGcm(Key, tagSize))
             {
                 byte[] cipherBytes = new byte[jsonBytes.Length];
-                byte[] authTag = new byte[16]; // Тег аутентификации
+                byte[] authTag = new byte[tagSize]; // Тег аутентификации
 
+                
+                for (int i = 0; i < authTag.Length; i++)
+                {
+                    authTag[i] = 2;
+                }
+                
                 aes.Encrypt(Iv, jsonBytes, cipherBytes, authTag);
 
                 // Шаг 3: Запись в файл в формате: IV + AuthTag + Данные
-                using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                using (var fileStream = new FileStream(filePath, FileMode.Truncate, FileAccess.Write))
                 {
                     fileStream.Write(Iv, 0, Iv.Length);
                     fileStream.Write(authTag, 0, authTag.Length);
@@ -73,11 +86,10 @@ namespace PasswordManager
             byte[] decryptedBytes;
             using (var aes = new AesGcm(Key,tagSize))
             {
-                decryptedBytes = new byte[encryptedData.Length];
-
+                decryptedBytes = new byte[encryptedData.Length];                
                 try
                 {
-                    aes.Decrypt(storedIv, encryptedData, decryptedBytes, storedTag);
+                    aes.Decrypt(storedIv, encryptedData, storedTag, decryptedBytes);
                 }
                 catch (CryptographicException ex)
                 {
@@ -92,5 +104,6 @@ namespace PasswordManager
             return JsonSerializer.Deserialize<List<T>>(jsonString)
                    ?? throw new InvalidDataException("Не удалось десериализовать JSON");
         }
+        
     }
 }

@@ -25,7 +25,7 @@ namespace PasswordManager
     public partial class MainWindow : Window
     {
         public ObservableCollection<string> MyDynamicItems { get; set; }
-        public List<PasswordItem> passwords = new List<PasswordItem>();
+        public List<PasswordItem> passwordList = new List<PasswordItem>();
 
         UserSettings userSettings;
         public MainWindow()
@@ -40,80 +40,105 @@ namespace PasswordManager
             // Dynamically add items anywhere in your logic
             MyDynamicItems.Add("Добавление комментария и пароля");
             MyDynamicItems.Add("Изменение комментария");
+            MyDynamicItems.Add("Изменение пароля");
             MyDynamicItems.Add("Удаление комментария и пароля");
-
             // Set the DataContext to this class for binding
             mode.ItemsSource = MyDynamicItems;
         }
 
         private void action_Click(object sender, RoutedEventArgs e)
         {
-            if (password.Text.Equals(""))
-            {
-                MessageBox.Show("Введите пароль");
-                return;
-            }
-
-            if (Regex.Replace(password.Text, @"\s+", "").Equals(""))
-            {
-                MessageBox.Show("Введите пароль");
-                return;
-            }
-
-            if (comment.Text.Equals(""))
-            {
-                MessageBox.Show("Введите комментарий");
-                return;
-            }
-
-            if (Regex.Replace(comment.Text, @"\s+", "").Equals(""))
-            {
-                MessageBox.Show("Введите комментарий");
-                return;
-            }
-
-            if (comment.Text.Equals(""))
-            {
-                MessageBox.Show("Введите комментарий");
-                return;
-            }
-
             // Добавление комментария и пароля
             if (mode.SelectedIndex == 0)
             {
-                passwords.Add(new PasswordItem(comment.Text, password.Text));
-                foreach (var password in passwords)
+                if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
                 {
-                    comments.Items.Add(password.comment);
-                    passwordsListView.Items.Add(password.password);
+                    MessageBox.Show("Введите комментарий");
+                    return;
                 }
-                comment.Text = "";
-                password.Text = "";
+
+                if (Regex.Replace(passwordTextBox.Text, @"\s+", "").Equals(""))
+                {
+                    MessageBox.Show("Введите пароль");
+                    return;
+                }
+
+                passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordTextBox.Text});
+                
+                comments.Items.Add(commentTextBox.Text);
+                passwordsListView.Items.Add(passwordTextBox.Text);
+
+                commentTextBox.Text = "";
+                passwordTextBox.Text = "";
             }
             // Изменение комментария
-            else if (mode.SelectedIndex == 1 & comments.SelectedIndex>=0) 
+            if (mode.SelectedIndex == 1)
             {
-                passwords[comments.SelectedIndex].comment = comment.Text;
-                comments.Items.Clear();
-
-                foreach (var password in passwords)
+                if (comments.SelectedIndex >= 0)
                 {
-                    comments.Items.Add(password.comment);
+                    if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
+                    {
+                        MessageBox.Show("Введите комментарий");
+                        return;
+                    }
+
+                    passwordList[comments.SelectedIndex].comment = commentTextBox.Text;
+                    comments.Items.Clear();
+
+                    foreach (var password in passwordList)
+                    {
+                        comments.Items.Add(password.comment);
+                    }
                 }
-            }
-            // Удаление комментария и пароля
-            else if (mode.SelectedIndex == 2 & comments.SelectedIndex >= 0)
-            {
-                passwords.RemoveAt(comments.SelectedIndex);
-                comments.Items.Clear();
-
-                foreach (var password in passwords)
+                else
                 {
-                    comments.Items.Add(password.comment);
-                    passwordsListView.Items.Add(password.password);
+                    MessageBox.Show("Выберите комментарий");
                 }
             }
             
+            // Изменение пароля
+            if(mode.SelectedIndex == 2)
+            {
+                if (passwordsListView.SelectedIndex >= 0)
+                {
+                    if (Regex.Replace(passwordTextBox.Text, @"\s+", "").Equals(""))
+                    {
+                        MessageBox.Show("Введите пароль");
+                        return;
+                    }
+
+                    passwordList[passwordsListView.SelectedIndex].password = passwordTextBox.Text;
+                    passwordsListView.Items.Clear();
+
+                    foreach (var password in passwordList)
+                    {
+                        passwordsListView.Items.Add(password.password);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите пароль");
+                }
+            }
+            // Удаление комментария и пароля
+            if (mode.SelectedIndex == 3)
+            {
+                if (comments.SelectedIndex >= 0)
+                {
+                    passwordList.RemoveAt(comments.SelectedIndex);
+                    comments.Items.Clear();
+
+                    foreach (var password in passwordList)
+                    {
+                        comments.Items.Add(password.comment);
+                        passwordsListView.Items.Add(password.password);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите комментарий");
+                }
+            }
             if (mode.SelectedIndex<0)
             {
                 MessageBox.Show("Выберите режим работы");
@@ -132,23 +157,21 @@ namespace PasswordManager
             }
             else if (mode.SelectedIndex == 2)
             {
+                action.Content = "Изменить пароль";
+            }
+            else if (mode.SelectedIndex == 3)
+            {
                 action.Content = "Удалить комментарий и пароль";
             }
         }
 
         private void generate_Click(object sender, RoutedEventArgs e)
         {
-            password.Text = PasswordGenerator.generatePassword(userSettings, 5);
+            passwordTextBox.Text = PasswordGenerator.generatePassword(userSettings, 5);
         }
 
         private void saveMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            string entered = "";
-            var dialog = new InputWindow("Введите пароль");
-            if (dialog.ShowDialog() == true)
-            {
-               entered = dialog.Result; // Получаем результат   
-            }
             SHA256 sha256 = SHA256.Create();
             
             // Convert the input string to a byte array
@@ -157,25 +180,54 @@ namespace PasswordManager
             // Compute the hash
             byte[] hashBytes = SHA256.HashData(inputBytes);
 
-            byte[] array = new byte[12];
+            byte[] arrayIV = new byte[12];
+            for (int i = 0; i < arrayIV.Length; i++)
+            {
+                arrayIV[i] = 2;
+            }
+
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-                // Configure dialog properties
+            
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             saveFileDialog.Filter = "JSON files(*.json)|*.json|All files(*.*)|*.*";
             saveFileDialog.FilterIndex = 1;
             saveFileDialog.DefaultExt = "json";
             saveFileDialog.Title = "Сохранить пароли";
 
-            // Show the dialog and check if the user clicked "OK"
             if (saveFileDialog.ShowDialog()==true)
             {
-                // 1. Сериализация в JSON + Шифрование
-                Cryptography.EncryptAndSave(passwords, saveFileDialog.FileName, hashBytes, array);
-                File.WriteAllText(saveFileDialog.FileName, JsonSerializer.Serialize(passwords));
+                CryptographyClass.EncryptAndSave(passwordList, saveFileDialog.FileName, hashBytes, arrayIV);
+                
             }
         }
 
-        
+        private void openMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            // 2. Configure properties
+            
+            openFileDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+
+            // 3. Show the dialog and check if the user clicked 'OK'
+            if (openFileDialog.ShowDialog() == true)
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes("OK");
+                // Compute the hash
+                byte[] hashBytes = SHA256.HashData(inputBytes);
+                passwordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);
+                comments.Items.Clear();
+                passwordsListView.Items.Clear();
+                foreach (PasswordItem passwordItem in passwordList)
+                {
+                    comments.Items.Add(passwordItem.comment);
+                    passwordsListView.Items.Add(passwordItem.password);
+                }
+            }
+
+        }
     }
 }
