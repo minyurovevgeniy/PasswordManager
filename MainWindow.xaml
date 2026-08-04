@@ -41,7 +41,7 @@
                 <MenuItem x:Name="saveMenuItem" Header="Сохранить" Click="saveMenuItem_Click"/>
                 <MenuItem Header="Закрыть"/>
             </MenuItem>
-            <MenuItem Header="Настройки"/>
+            <MenuItem Header="Настройки" x:Name="Settings" Click="Settings_Click"/>
         </Menu>
         <Button Grid.Column="0" x:Name="action" Content="Добавить комментарий и пароль" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Height="26" Width="207" Click="action_Click" />
         <TextBox x:Name="commentTextBox" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Margin="5" Width="410" Height="25"/>

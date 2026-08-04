@@ -229,7 +229,6 @@ namespace PasswordManager
                     passwordsListView.Items.Add(passwordItem.password);
                 }
             }
-
-        }
+        }   
     }
 }
