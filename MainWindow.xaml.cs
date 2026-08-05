@@ -172,12 +172,22 @@ namespace PasswordManager
 
         private void saveMenuItem_Click(object sender, RoutedEventArgs e)
         {
+
             // Окно для ввода мастер-пароля
-            string entered = "";
+            InputWindow masterPassword = new InputWindow("Мастер-пароль");
+
+            masterPassword.Owner = this;
+            masterPassword.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            if (masterPassword.ShowDialog()==false)
+            {
+                MessageBox.Show("Введите мастер-пароль");
+                return;
+            }
             SHA256 sha256 = SHA256.Create();
             
             // Convert the input string to a byte array
-            byte[] inputBytes = Encoding.UTF8.GetBytes("OK");
+            byte[] inputBytes = Encoding.UTF8.GetBytes(masterPassword.Result);
 
             // Compute the hash
             byte[] hashBytes = SHA256.HashData(inputBytes);
@@ -217,7 +227,18 @@ namespace PasswordManager
             // 3. Show the dialog and check if the user clicked 'OK'
             if (openFileDialog.ShowDialog() == true)
             {
-                byte[] inputBytes = Encoding.UTF8.GetBytes("OK");
+                // Окно для ввода мастер-пароля
+                InputWindow masterPassword = new InputWindow("Мастер-пароль");
+
+                masterPassword.Owner = this;
+                masterPassword.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+                if (masterPassword.ShowDialog() == false)
+                {
+                    MessageBox.Show("Введите мастер-пароль");
+                    return;
+                }
+                byte[] inputBytes = Encoding.UTF8.GetBytes(masterPassword.Result);
                 // Compute the hash
                 byte[] hashBytes = SHA256.HashData(inputBytes);
                 passwordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);

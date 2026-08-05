@@ -26,7 +26,7 @@ namespace PasswordManager
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            string userInput = InputTextBox.Text;
+            string userInput = masterPasswordBox.Password;
 
             if (string.IsNullOrWhiteSpace(userInput))
             {
