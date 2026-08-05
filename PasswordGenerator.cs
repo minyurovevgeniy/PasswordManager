@@ -12,26 +12,26 @@ namespace PasswordManager
         const string specialChars = "!?.,:;-_@#$%";
 
 
-        public static string generatePassword(UserSettings userSettings, int passwordLength)
+        public static string generatePassword(UserSettings userSettings)
         {
             StringBuilder chars = new StringBuilder("");
 
-            if (userSettings.AlphabetUpperCaseLetters)
+            if ((bool)userSettings.AlphabetUpperCaseLetters)
             {
                 chars.Append(alphabetUpperCaseLetters);
             }
 
-            if (userSettings.AlphabetLowerCaseLetters)
+            if ((bool)userSettings.AlphabetLowerCaseLetters)
             {
                 chars.Append(alphabetLowerCaseLetters);
             }
 
-            if (userSettings.Digits)
+            if ((bool)userSettings.Digits)
             {
                 chars.Append(digits);
             }
 
-            if (userSettings.SpecialChars)
+            if ((bool)userSettings.SpecialChars)
             {
                 chars.Append(specialChars);
             }
@@ -39,7 +39,7 @@ namespace PasswordManager
             StringBuilder sb = new StringBuilder("");
             Random rand = new Random();
 
-            for (int i = 0; i < passwordLength; i++)
+            for (int i = 0; i < userSettings.PasswordLength; i++)
             {
                 sb.Append(chars[rand.Next(chars.Length)]);
             }

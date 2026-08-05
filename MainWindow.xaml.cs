@@ -167,7 +167,7 @@ namespace PasswordManager
 
         private void generate_Click(object sender, RoutedEventArgs e)
         {
-            passwordTextBox.Text = PasswordGenerator.generatePassword(userSettings, 5);
+            passwordTextBox.Text = PasswordGenerator.generatePassword(userSettings);
         }
 
         private void saveMenuItem_Click(object sender, RoutedEventArgs e)
@@ -229,6 +229,19 @@ namespace PasswordManager
                     passwordsListView.Items.Add(passwordItem.password);
                 }
             }
-        }   
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            var SetWindow = new SettingsWindow(userSettings);
+
+            SetWindow.Owner = this;
+            SetWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            if (SetWindow.ShowDialog() == true)
+            {
+                userSettings = SetWindow.settings;
+            }
+        }
     }
 }
