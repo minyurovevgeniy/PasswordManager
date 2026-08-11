@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace PasswordManager
@@ -44,6 +45,8 @@ namespace PasswordManager
             MyDynamicItems.Add("Удаление комментария и пароля");
             // Set the DataContext to this class for binding
             mode.ItemsSource = MyDynamicItems;
+
+            
         }
 
         private void action_Click(object sender, RoutedEventArgs e)
@@ -65,8 +68,11 @@ namespace PasswordManager
 
                 passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordTextBox.Text});
 
-                commentsListView.Items.Add(commentTextBox.Text);
-                passwordsListView.Items.Add(passwordTextBox.Text);
+                //commentsListView.Items.Add(commentTextBox.Text);
+                //passwordsListView.Items.Add(passwordTextBox.Text);
+
+                //passwordsListView.Items.Clear();
+                passwordsListView.Items.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordTextBox.Text });//ItemsSource = passwordList;
 
                 commentTextBox.Text = "";
                 passwordTextBox.Text = "";
@@ -143,6 +149,19 @@ namespace PasswordManager
             {
                 MessageBox.Show("Выберите режим работы");
             }
+
+
+            /*
+            List<PasswordItem> items = new();
+            items.Clear();
+
+            foreach (PasswordItem item in passwordList)
+            {
+                items.Add(new PasswordItem() { password = item.password, comment = item.comment});
+            }
+
+            */
+
         }
 
         private void mode_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -267,8 +286,48 @@ namespace PasswordManager
 
         private void passwordTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
-            
+            string digits = "1234567890";
+            string specialChars = "!?.,:; -_@#$%";
+            string currentPassword = passwordTextBox.Text;
+            if (currentPassword.Length < 3)
+            {
+                (sender as TextBox).Background = Brushes.Red;
+            }
+            else
+            {
+                byte digitsCount = 0;
+                foreach (char c in digits)
+                {
+                    if (currentPassword.Contains(c))
+                    {
+                        digitsCount++;
+                    }
+                }
+                if (digitsCount < 1)
+                {
+                    (sender as TextBox).Background = Brushes.Yellow;
+                }
+                else
+                {
+                    byte specialCharsCount = 0;
+                    foreach (char c in specialChars)
+                    {
+                        if (currentPassword.Contains(c))
+                        {
+                            specialCharsCount++;
+                        }
+                    }
+                    if (specialCharsCount < 1)
+                    {
+                        (sender as TextBox).Background = Brushes.Linen;
+                    }
+                    else
+                    {
+                        (sender as TextBox).Background = Brushes.Green;
+                    }
+                }
+            }
+
         }
     }
 }
