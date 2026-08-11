@@ -80,7 +80,7 @@ namespace PasswordManager
             // Изменение комментария
             if (mode.SelectedIndex == 1)
             {
-                if (commentsListView.SelectedIndex >= 0)
+                if (passwordsListView.SelectedIndex >= 0)
                 {
                     if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
                     {
@@ -88,13 +88,15 @@ namespace PasswordManager
                         return;
                     }
 
-                    passwordList[commentsListView.SelectedIndex].comment = commentTextBox.Text;
-                    commentsListView.Items.Clear();
+                    passwordList[passwordsListView.SelectedIndex].comment = commentTextBox.Text;
+
+                    passwordsListView.Items.Clear();
 
                     foreach (var password in passwordList)
                     {
-                        commentsListView.Items.Add(password.comment);
+                        passwordsListView.Items.Add(password);
                     }
+                    
                 }
                 else
                 {
