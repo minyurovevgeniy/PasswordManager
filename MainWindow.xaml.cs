@@ -264,5 +264,11 @@ namespace PasswordManager
                 userSettings = SetWindow.settings;
             }
         }
+
+        private void passwordTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+            
+        }
     }
 }
