@@ -68,10 +68,6 @@ namespace PasswordManager
 
                 passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordTextBox.Text});
 
-                //commentsListView.Items.Add(commentTextBox.Text);
-                //passwordsListView.Items.Add(passwordTextBox.Text);
-
-                //passwordsListView.Items.Clear();
                 passwordsListView.Items.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordTextBox.Text });//ItemsSource = passwordList;
 
                 commentTextBox.Text = "";
@@ -99,7 +95,7 @@ namespace PasswordManager
                 }
                 else
                 {
-                    MessageBox.Show("Выберите комментарий");
+                    MessageBox.Show("Выберите запись");
                 }
             }
             
@@ -124,45 +120,31 @@ namespace PasswordManager
                 }
                 else
                 {
-                    MessageBox.Show("Выберите пароль");
+                    MessageBox.Show("Выберите запись");
                 }
             }
             // Удаление комментария и пароля
             if (mode.SelectedIndex == 3)
             {
-                if (commentsListView.SelectedIndex >= 0)
+                if (passwordsListView.SelectedIndex >= 0)
                 {
-                    passwordList.RemoveAt(commentsListView.SelectedIndex);
-                    commentsListView.Items.Clear();
+                    passwordList.RemoveAt(passwordsListView.SelectedIndex);
+                    passwordsListView.Items.Clear();
 
                     foreach (var password in passwordList)
                     {
-                        commentsListView.Items.Add(password.comment);
-                        passwordsListView.Items.Add(password.password);
+                        passwordsListView.Items.Add(password);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Выберите комментарий");
+                    MessageBox.Show("Выберите запись");
                 }
             }
-            if (mode.SelectedIndex<0)
+            if (mode.SelectedIndex < 0)
             {
                 MessageBox.Show("Выберите режим работы");
             }
-
-
-            /*
-            List<PasswordItem> items = new();
-            items.Clear();
-
-            foreach (PasswordItem item in passwordList)
-            {
-                items.Add(new PasswordItem() { password = item.password, comment = item.comment});
-            }
-
-            */
-
         }
 
         private void mode_SelectionChanged(object sender, SelectionChangedEventArgs e)
