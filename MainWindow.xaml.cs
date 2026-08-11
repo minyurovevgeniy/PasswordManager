@@ -96,7 +96,6 @@ namespace PasswordManager
                     {
                         passwordsListView.Items.Add(password);
                     }
-                    
                 }
                 else
                 {
@@ -120,7 +119,7 @@ namespace PasswordManager
 
                     foreach (var password in passwordList)
                     {
-                        passwordsListView.Items.Add(password.password);
+                        passwordsListView.Items.Add(password);
                     }
                 }
                 else
