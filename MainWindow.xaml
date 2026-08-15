@@ -31,7 +31,7 @@
             <ColumnDefinition Width="50*"></ColumnDefinition>
             <ColumnDefinition Width="50*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <TextBlock Grid.Row="1" Grid.Column="1" Text="Комментарии" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="1" Grid.Column="2" Text="Текущий пароль" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
@@ -52,14 +52,14 @@
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding comment}" FontWeight="Bold" FontSize="14" Foreground="#333333"/>
                             <!--<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding password}" FontSize="14" Foreground="#777777" Margin="0,2,0,0"/>-->
-                            
+
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <Menu Background="{StaticResource menuBackColor}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Margin="1">
-            
+
             <MenuItem Header="Файл">
                 <MenuItem Header="Создать"/>
                 <MenuItem x:Name="openMenuItem" Header="Открыть" Click="openMenuItem_Click"/>
@@ -75,7 +75,7 @@
                 
             Grid.Column="0" x:Name="action" Content="Добавить комментарий и пароль" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Height="26" Width="207" Click="action_Click" />
 
-        <TextBox x:Name="commentTextBox" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Margin="5" Width="420" Height="25"/>
+        <TextBox x:Name="commentTextBox" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Margin="5,0,0,0" Width="268" Height="25"/>
         <TextBlock HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" Text="Режим работы" VerticalAlignment="Center" Margin="15,0,0,0"/>
         <ComboBox x:Name="mode" HorizontalAlignment="Center" Margin="0,14,0,14" Grid.Row="5" Width="208" Height="22" SelectionChanged="mode_SelectionChanged">
 
@@ -84,15 +84,15 @@
                     <Setter Property="Background" Value="LightBlue"/>
                 </Style>
             </ComboBox.ItemContainerStyle>
-            
+
         </ComboBox>
-            
+
         <Button  
             Foreground="{StaticResource buttonFontColor}"
             Background="{StaticResource buttonBackColor}"
-                 Height="25" Width="180" Grid.Column="1" x:Name="generate" Content="Генерировать пароль" HorizontalAlignment="Center" Margin="0,10,0,15" Grid.Row="4" RenderTransformOrigin="-0.833,0.69" Click="generate_Click"/>
-        <TextBox x:Name="passwordTextBox" Grid.Column="1" Margin="6,0,6,0" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Height="25" TextChanged="passwordTextBox_TextChanged"/>
-        <PasswordBox Grid.Column="1" HorizontalAlignment="Left" Margin="83,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" TextInput="PasswordBox_TextInput"/>
+                 Height="25" Width="180" Grid.Column="1" x:Name="generate" Content="Генерировать пароль" HorizontalAlignment="Center" Margin="0,10,0,15" Grid.Row="4" Click="generate_Click"/>
+
+        <PasswordBox x:Name="passwordBox" Width="268" Height="25" Grid.Column="1" HorizontalAlignment="Center" Margin="5" Grid.Row="3" VerticalAlignment="Center" TextInput="PasswordBox_TextInput" PasswordChanged="passwordBox_PasswordChanged"/>
 
     </Grid>
 </Window>

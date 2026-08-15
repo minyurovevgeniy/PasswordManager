@@ -60,13 +60,13 @@ namespace PasswordManager
                     return;
                 }
 
-                if (Regex.Replace(passwordTextBox.Text, @"\s+", "").Equals(""))
+                if (Regex.Replace(passwordBox.Password, @"\s+", "").Equals(""))
                 {
                     MessageBox.Show("Введите пароль");
                     return;
                 }
 
-                passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordTextBox.Text});
+                passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordBox.Password });
 
                 passwordList = passwordList.OrderBy(p => p.comment).ToList();
 
@@ -77,7 +77,7 @@ namespace PasswordManager
                 }
 
                 commentTextBox.Text = "";
-                passwordTextBox.Text = "";
+                passwordBox.Password = "";
             }
             // Изменение комментария
             if (mode.SelectedIndex == 1)
@@ -110,13 +110,13 @@ namespace PasswordManager
             {
                 if (passwordsListView.SelectedIndex >= 0)
                 {
-                    if (Regex.Replace(passwordTextBox.Text, @"\s+", "").Equals(""))
+                    if (Regex.Replace(passwordBox.Password, @"\s+", "").Equals(""))
                     {
                         MessageBox.Show("Введите пароль");
                         return;
                     }
 
-                    passwordList[passwordsListView.SelectedIndex].password = passwordTextBox.Text;
+                    passwordList[passwordsListView.SelectedIndex].password = passwordBox.Password;
                     passwordsListView.Items.Clear();
 
                     foreach (var password in passwordList)
@@ -175,7 +175,7 @@ namespace PasswordManager
 
         private void generate_Click(object sender, RoutedEventArgs e)
         {
-            passwordTextBox.Text = PasswordGenerator.generatePassword(userSettings);
+            passwordBox.Password = PasswordGenerator.generatePassword(userSettings);
         }
 
         private void saveMenuItem_Click(object sender, RoutedEventArgs e)
@@ -281,9 +281,14 @@ namespace PasswordManager
 
         private void PasswordBox_TextInput(object sender, TextCompositionEventArgs e)
         {
+            
+        }
+
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
             string digits = "1234567890";
             string specialChars = "!?.,:; -_@#$%";
-            string currentPassword = passwordTextBox.Text;
+            string currentPassword = passwordBox.Password;
             if (currentPassword.Length < 3)
             {
                 (sender as PasswordBox).Background = Brushes.Red;
