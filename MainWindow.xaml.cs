@@ -68,7 +68,13 @@ namespace PasswordManager
 
                 passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordTextBox.Text});
 
-                passwordsListView.Items.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordTextBox.Text });//ItemsSource = passwordList;
+                passwordList = passwordList.OrderBy(p => p.comment).ToList();
+
+                foreach (PasswordItem p in passwordList)
+                {
+                    passwordsListView.Items.Add(new PasswordItem { comment = p.comment, password = p.password });
+                    
+                }
 
                 commentTextBox.Text = "";
                 passwordTextBox.Text = "";
@@ -244,12 +250,12 @@ namespace PasswordManager
                 // Compute the hash
                 byte[] hashBytes = SHA256.HashData(inputBytes);
                 passwordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);
-                commentsListView.Items.Clear();
+                
                 passwordsListView.Items.Clear();
-                foreach (PasswordItem passwordItem in passwordList)
+                foreach (PasswordItem p in passwordList)
                 {
-                    commentsListView.Items.Add(passwordItem.comment);
-                    passwordsListView.Items.Add(passwordItem.password);
+                    passwordsListView.Items.Add(new PasswordItem { comment = p.comment, password = p.password });
+                    //passwordsListView.Items.Add(new PasswordItem { comment = p.comment});
                 }
             }
         }
@@ -269,12 +275,18 @@ namespace PasswordManager
 
         private void passwordTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
+
+        }
+
+        private void PasswordBox_TextInput(object sender, TextCompositionEventArgs e)
+        {
             string digits = "1234567890";
             string specialChars = "!?.,:; -_@#$%";
             string currentPassword = passwordTextBox.Text;
             if (currentPassword.Length < 3)
             {
-                (sender as TextBox).Background = Brushes.Red;
+                (sender as PasswordBox).Background = Brushes.Red;
             }
             else
             {
@@ -288,7 +300,7 @@ namespace PasswordManager
                 }
                 if (digitsCount < 1)
                 {
-                    (sender as TextBox).Background = Brushes.Yellow;
+                    (sender as PasswordBox).Background = Brushes.Yellow;
                 }
                 else
                 {
@@ -302,15 +314,14 @@ namespace PasswordManager
                     }
                     if (specialCharsCount < 1)
                     {
-                        (sender as TextBox).Background = Brushes.Linen;
+                        (sender as PasswordBox).Background = Brushes.Linen;
                     }
                     else
                     {
-                        (sender as TextBox).Background = Brushes.Green;
+                        (sender as PasswordBox).Background = Brushes.Green;
                     }
                 }
             }
-
         }
     }
 }
