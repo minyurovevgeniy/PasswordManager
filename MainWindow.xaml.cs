@@ -54,9 +54,9 @@ namespace PasswordManager
             // Добавить запись
             if (mode.SelectedIndex == 0)
             {
-                if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
+                if (Regex.Replace(loginTextBox.Text, @"\s+", "").Equals(""))
                 {
-                    MessageBox.Show("Введите комментарий");
+                    MessageBox.Show("Введите логин");
                     return;
                 }
 
@@ -66,23 +66,31 @@ namespace PasswordManager
                     return;
                 }
 
-                if (passwordList.Any(x => x.comment == commentTextBox.Text))
+                if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
+                {
+                    MessageBox.Show("Введите комментарий");
+                    return;
+                }
+
+                if (passwordList.Any(x => x.login == loginTextBox.Text))
                 {
                     MessageBox.Show("Такой логин уже есть");
                     return;
                 }
                 else
                 {
-                    passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordBox.Password });
+                    passwordList.Add(new PasswordItem {login = loginTextBox.Text, comment = commentTextBox.Text, password = passwordBox.Password });
 
-                    passwordList = passwordList.OrderBy(p => p.comment).ToList();
+                    passwordList = passwordList.OrderBy(p => p.login).ToList();
 
-                    foreach (PasswordItem p in passwordList)
+                    passwordsListView.Items.Clear();
+
+                    foreach (var password in passwordList)
                     {
-                        //passwordsListView.Items.Add(new PasswordItem { comment = p.comment, password = p.password });
-
+                        passwordsListView.Items.Add(password);
                     }
 
+                    loginTextBox.Text = "";
                     commentTextBox.Text = "";
                     passwordBox.Password = "";
                 }
@@ -166,7 +174,7 @@ namespace PasswordManager
         {
             if (mode.SelectedIndex == 0)
             {
-                action.Content = "Добавить комментарий и пароль";
+                action.Content = "Добавить запись";
             }
             else if (mode.SelectedIndex == 1)
             {
