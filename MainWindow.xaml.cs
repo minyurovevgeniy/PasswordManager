@@ -40,9 +40,10 @@ namespace PasswordManager
 
             // Dynamically add items anywhere in your logic
             MyDynamicItems.Add("Добавить запись");
-            MyDynamicItems.Add("Изменение комментария");
+            MyDynamicItems.Add("Изменение логина");
             MyDynamicItems.Add("Изменение пароля");
-            MyDynamicItems.Add("Удаление комментария и пароля");
+            MyDynamicItems.Add("Изменение комментария");
+            MyDynamicItems.Add("Удаление записи");
             // Set the DataContext to this class for binding
             mode.ItemsSource = MyDynamicItems;
 
@@ -96,8 +97,57 @@ namespace PasswordManager
                 }
                 
             }
-            // Изменение комментария
+            // Изменение логина
             if (mode.SelectedIndex == 1)
+            {
+                if (passwordsListView.SelectedIndex >= 0)
+                {
+                    if (Regex.Replace(loginTextBox.Text, @"\s+", "").Equals(""))
+                    {
+                        MessageBox.Show("Введите логин");
+                        return;
+                    }
+
+                    passwordList[passwordsListView.SelectedIndex].login = loginTextBox.Text;
+
+                    passwordsListView.Items.Clear();
+
+                    foreach (var password in passwordList)
+                    {
+                        passwordsListView.Items.Add(password);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите запись");
+                }
+            }
+            // Изменение пароля
+            if (mode.SelectedIndex == 2)
+            {
+                if (passwordsListView.SelectedIndex >= 0)
+                {
+                    if (Regex.Replace(passwordBox.Password, @"\s+", "").Equals(""))
+                    {
+                        MessageBox.Show("Введите пароль");
+                        return;
+                    }
+
+                    passwordList[passwordsListView.SelectedIndex].password = passwordBox.Password;
+                    passwordsListView.Items.Clear();
+
+                    foreach (var password in passwordList)
+                    {
+                        passwordsListView.Items.Add(password);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите запись");
+                }
+            }
+            // Изменение комментария
+            if (mode.SelectedIndex == 3)
             {
                 if (passwordsListView.SelectedIndex >= 0)
                 {
@@ -121,33 +171,10 @@ namespace PasswordManager
                     MessageBox.Show("Выберите запись");
                 }
             }
+
             
-            // Изменение пароля
-            if(mode.SelectedIndex == 2)
-            {
-                if (passwordsListView.SelectedIndex >= 0)
-                {
-                    if (Regex.Replace(passwordBox.Password, @"\s+", "").Equals(""))
-                    {
-                        MessageBox.Show("Введите пароль");
-                        return;
-                    }
-
-                    passwordList[passwordsListView.SelectedIndex].password = passwordBox.Password;
-                    passwordsListView.Items.Clear();
-
-                    foreach (var password in passwordList)
-                    {
-                        passwordsListView.Items.Add(password);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Выберите запись");
-                }
-            }
-            // Удаление комментария и пароля
-            if (mode.SelectedIndex == 3)
+            // Удаление записи
+            if (mode.SelectedIndex == 4)
             {
                 if (passwordsListView.SelectedIndex >= 0)
                 {
@@ -178,7 +205,7 @@ namespace PasswordManager
             }
             else if (mode.SelectedIndex == 1)
             {
-                action.Content = "Изменить комментарий";
+                action.Content = "Изменить логин";
             }
             else if (mode.SelectedIndex == 2)
             {
@@ -186,7 +213,11 @@ namespace PasswordManager
             }
             else if (mode.SelectedIndex == 3)
             {
-                action.Content = "Удалить комментарий и пароль";
+                action.Content = "Изменить комментарий";
+            }
+            else if (mode.SelectedIndex == 4)
+            {
+                action.Content = "Удалить запись";
             }
         }
 
