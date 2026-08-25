@@ -266,7 +266,6 @@ namespace PasswordManager
             if (saveFileDialog.ShowDialog()==true)
             {
                 CryptographyClass.EncryptAndSave(passwordList, saveFileDialog.FileName, hashBytes, arrayIV);
-                
             }
         }
 
@@ -303,7 +302,6 @@ namespace PasswordManager
                 foreach (PasswordItem p in passwordList)
                 {
                     passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment});
-                    //passwordsListView.Items.Add(new PasswordItem { comment = p.comment});
                 }
             }
         }
