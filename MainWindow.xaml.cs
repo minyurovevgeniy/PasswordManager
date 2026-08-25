@@ -39,7 +39,7 @@ namespace PasswordManager
             MyDynamicItems = new ObservableCollection<string>();
 
             // Dynamically add items anywhere in your logic
-            MyDynamicItems.Add("Добавление комментария и пароля");
+            MyDynamicItems.Add("Добавить запись");
             MyDynamicItems.Add("Изменение комментария");
             MyDynamicItems.Add("Изменение пароля");
             MyDynamicItems.Add("Удаление комментария и пароля");
@@ -51,7 +51,7 @@ namespace PasswordManager
 
         private void action_Click(object sender, RoutedEventArgs e)
         {
-            // Добавление комментария и пароля
+            // Добавить запись
             if (mode.SelectedIndex == 0)
             {
                 if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
@@ -66,18 +66,27 @@ namespace PasswordManager
                     return;
                 }
 
-                passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordBox.Password });
-
-                passwordList = passwordList.OrderBy(p => p.comment).ToList();
-
-                foreach (PasswordItem p in passwordList)
+                if (passwordList.Any(x => x.comment == commentTextBox.Text))
                 {
-                    passwordsListView.Items.Add(new PasswordItem { comment = p.comment, password = p.password });
-                    
+                    MessageBox.Show("Такой логин уже есть");
+                    return;
                 }
+                else
+                {
+                    passwordList.Add(new PasswordItem { comment = commentTextBox.Text, password = passwordBox.Password });
 
-                commentTextBox.Text = "";
-                passwordBox.Password = "";
+                    passwordList = passwordList.OrderBy(p => p.comment).ToList();
+
+                    foreach (PasswordItem p in passwordList)
+                    {
+                        //passwordsListView.Items.Add(new PasswordItem { comment = p.comment, password = p.password });
+
+                    }
+
+                    commentTextBox.Text = "";
+                    passwordBox.Password = "";
+                }
+                
             }
             // Изменение комментария
             if (mode.SelectedIndex == 1)
@@ -254,7 +263,7 @@ namespace PasswordManager
                 passwordsListView.Items.Clear();
                 foreach (PasswordItem p in passwordList)
                 {
-                    passwordsListView.Items.Add(new PasswordItem { comment = p.comment, password = p.password });
+                    passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment});
                     //passwordsListView.Items.Add(new PasswordItem { comment = p.comment});
                 }
             }

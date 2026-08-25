@@ -7,7 +7,9 @@ namespace PasswordManager
 {
     public class PasswordItem
     {
-        public string comment { get; set; }
+        public string id = Guid.NewGuid().ToString();
+        public string login { get; set; }
         public string password { get; set; }
+        public string comment { get; set; }
     }
 }
