@@ -72,10 +72,10 @@
 
         <TextBlock HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="1" Grid.Column="1" Text="Поиск" VerticalAlignment="Center"/>
 
-        <RadioButton Content="Логин" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+        <RadioButton Content="Логин" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"  Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
         
-        <RadioButton Content="Комментарий" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+        <RadioButton Content="Комментарий" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
         <TextBox Width="200" Grid.Row="3" Grid.Column="1"
          Height="150"
          AcceptsReturn="True"
