@@ -392,5 +392,23 @@ namespace PasswordManager
                 passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
             }
         }
+
+        private void search_Click(object sender, RoutedEventArgs e)
+        {
+            if (searchByName.IsChecked==true)
+            {
+                bufferPasswordList = passwordList.Where(o => o.login.Contains(searchByLoginValue.Text)).ToList();
+            }
+            else
+            {
+                bufferPasswordList = passwordList.Where(o => o.comment.Contains(searchByCommentValue.Text)).ToList();
+            }
+
+            passwordsListView.Items.Clear();
+            foreach (PasswordItem p in bufferPasswordList)
+            {
+                passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
+            }
+        }
     }
 }

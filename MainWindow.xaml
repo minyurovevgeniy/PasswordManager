@@ -71,12 +71,12 @@
         </Menu>
 
         <TextBlock HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="1" Grid.Column="1" Text="Поиск" VerticalAlignment="Center"/>
-
-        <RadioButton Content="Логин" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"  Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+        
+        <RadioButton x:Name="searchByName" Content="Логин" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
+        <TextBox x:Name="searchByLoginValue" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"  Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
         
         <RadioButton Content="Комментарий" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
-        <TextBox Width="200" Grid.Row="3" Grid.Column="1"
+        <TextBox Width="200" Grid.Row="3" Grid.Column="1" x:Name="searchByCommentValue"
          Height="150"
          AcceptsReturn="True"
          TextWrapping="Wrap"
@@ -85,7 +85,7 @@
 
         <Button Grid.Column="1" Content="Искать" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="200"
                 Foreground="{StaticResource buttonFontColor}"
-Background="{StaticResource buttonBackColor}"/>
+Background="{StaticResource buttonBackColor}" x:Name="search"  Click="search_Click"/>
 
         <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="7" Text="Логин" VerticalAlignment="Center" Height="16" Width="41" Margin="5,0,0,0"/>
         <TextBox x:Name="loginTextBox" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="200" Height="18"/>
