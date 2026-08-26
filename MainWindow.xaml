@@ -145,7 +145,7 @@ Background="{StaticResource buttonBackColor}" Width="200" Height="26" x:Name="ge
         </ListView>
         <Button FontFamily="{StaticResource buttonFont}"
     Foreground="{StaticResource buttonFontColor}"
-    Background="{StaticResource buttonBackColor}" x:Name="showAll" Height="26" Width="200" Grid.Column="2" Content="Отобразить всё" HorizontalAlignment="Center" Margin="5" Grid.Row="11" VerticalAlignment="Center"/>
+    Background="{StaticResource buttonBackColor}" x:Name="showAll" Height="26" Width="200" Grid.Column="2" Content="Отобразить всё" HorizontalAlignment="Center" Margin="5" Grid.Row="11" VerticalAlignment="Center" Click="showAll_Click"/>
 
 
     </Grid>

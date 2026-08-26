@@ -27,6 +27,7 @@ namespace PasswordManager
     {
         public ObservableCollection<string> MyDynamicItems { get; set; }
         public List<PasswordItem> passwordList = new List<PasswordItem>();
+        public List<PasswordItem> bufferPasswordList = new List<PasswordItem>();
 
         UserSettings userSettings;
         public MainWindow()
@@ -297,9 +298,10 @@ namespace PasswordManager
                 // Compute the hash
                 byte[] hashBytes = SHA256.HashData(inputBytes);
                 passwordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);
+                bufferPasswordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);
                 
                 passwordsListView.Items.Clear();
-                foreach (PasswordItem p in passwordList)
+                foreach (PasswordItem p in bufferPasswordList)
                 {
                     passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment});
                 }
@@ -372,6 +374,22 @@ namespace PasswordManager
                         (sender as PasswordBox).Background = Brushes.Green;
                     }
                 }
+            }
+        }
+
+        private void showAll_Click(object sender, RoutedEventArgs e)
+        {
+            bufferPasswordList.Clear();
+
+            foreach (PasswordItem item in passwordList)
+            {
+                bufferPasswordList.Add(item);
+            }
+
+            passwordsListView.Items.Clear();
+            foreach (PasswordItem p in passwordList)
+            {
+                passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
             }
         }
     }
