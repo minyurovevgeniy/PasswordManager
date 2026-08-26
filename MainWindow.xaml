@@ -75,7 +75,7 @@
         <RadioButton x:Name="searchByName" Content="Логин" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
         <TextBox x:Name="searchByLoginValue" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"  Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
         
-        <RadioButton Content="Комментарий" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
+        <RadioButton x:Name="searchByComment" Content="Комментарий" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
         <TextBox Width="200" Grid.Row="3" Grid.Column="1" x:Name="searchByCommentValue"
          Height="150"
          AcceptsReturn="True"

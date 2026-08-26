@@ -400,6 +400,7 @@ namespace PasswordManager
                 bufferPasswordList = passwordList.Where(o => o.login.Contains(searchByLoginValue.Text)).ToList();
             }
             else
+			if (searchByComment.IsChecked==true)
             {
                 bufferPasswordList = passwordList.Where(o => o.comment.Contains(searchByCommentValue.Text)).ToList();
             }
