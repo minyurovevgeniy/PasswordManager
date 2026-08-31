@@ -69,6 +69,10 @@
     Background="{StaticResource buttonBackColor}"
             x:Name="save" Grid.Column="3" Content="Сохранить запись" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="10" VerticalAlignment="Center" Height="26" Width="200" Click="save_Click"/>
 
+        <Button
+            FontFamily="{StaticResource buttonFont}" Foreground="{StaticResource buttonFontColor}" Background="{StaticResource buttonBackColor}"
+            Height="26" Width="200" Content="Удалить" x:Name="delete" Grid.Column="3" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="11" VerticalAlignment="Center" Click="delete_Click"/>
+        
         <Menu Background="{StaticResource menuBackColor}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="1,1,1,1">
 
             <MenuItem Header="Файл">
@@ -81,10 +85,10 @@
         </Menu>
 
         <TextBlock HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="1" Grid.Column="1" Text="Поиск" VerticalAlignment="Center"/>
-        
+
         <RadioButton x:Name="searchByName" Content="Логин" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
         <TextBox x:Name="searchByLoginValue" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"  Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
-        
+
         <RadioButton x:Name="searchByComment" Content="Комментарий" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" GroupName="searchBy"/>
         <TextBox Width="200" Grid.Row="3" Grid.Column="1" x:Name="searchByCommentValue"
          Height="150"
@@ -157,9 +161,5 @@ Background="{StaticResource buttonBackColor}" Width="200" Height="26" x:Name="ge
     Foreground="{StaticResource buttonFontColor}"
     Background="{StaticResource buttonBackColor}" x:Name="showAll" Height="26" Width="200" Grid.Column="2" Content="Отобразить всё" HorizontalAlignment="Center" Margin="5" Grid.Row="11" VerticalAlignment="Center" Click="showAll_Click"/>
         
-
-
-
-
     </Grid>
 </Window>

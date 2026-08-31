@@ -467,54 +467,95 @@ namespace PasswordManager
 
         private void save_Click(object sender, RoutedEventArgs e)
         {
-            if (isBuffer)
+            if (passwordsListView.SelectedIndex>=0)
             {
-                currentGUID = bufferPasswordList[passwordsListView.SelectedIndex].id;
-                for (int i = 0; i < bufferPasswordList.Count;i++)
+                if (isBuffer)
                 {
-                    if (bufferPasswordList[i].id.Equals(currentGUID))
+                    currentGUID = bufferPasswordList[passwordsListView.SelectedIndex].id;
+                    for (int i = 0; i < bufferPasswordList.Count; i++)
                     {
-                        bufferPasswordList[i].login = currentLoginValue.Text;
-                        bufferPasswordList[i].password = currentPasswordValue.Password;
-                        bufferPasswordList[i].comment = currentCommentValue.Text;
+                        if (bufferPasswordList[i].id.Equals(currentGUID))
+                        {
+                            bufferPasswordList[i].login = currentLoginValue.Text;
+                            bufferPasswordList[i].password = currentPasswordValue.Password;
+                            bufferPasswordList[i].comment = currentCommentValue.Text;
+                        }
+                    }
+
+                    for (int i = 0; i < passwordList.Count; i++)
+                    {
+                        if (passwordList[i].id.Equals(currentGUID))
+                        {
+                            passwordList[i].login = currentLoginValue.Text;
+                            passwordList[i].password = currentPasswordValue.Password;
+                            passwordList[i].comment = currentCommentValue.Text;
+                        }
+                    }
+                }
+                else
+                {
+                    currentGUID = passwordList[passwordsListView.SelectedIndex].id;
+                    for (int i = 0; i < passwordList.Count; i++)
+                    {
+                        if (passwordList[i].id.Equals(currentGUID))
+                        {
+                            passwordList[i].login = currentLoginValue.Text;
+                            passwordList[i].password = currentPasswordValue.Password;
+                            passwordList[i].comment = currentCommentValue.Text;
+                        }
                     }
                 }
 
-                for (int i = 0; i < passwordList.Count; i++)
+                bufferPasswordList.Clear();
+
+                foreach (PasswordItem item in passwordList)
                 {
-                    if (passwordList[i].id.Equals(currentGUID))
-                    {
-                        passwordList[i].login = currentLoginValue.Text;
-                        passwordList[i].password = currentPasswordValue.Password;
-                        passwordList[i].comment = currentCommentValue.Text;
-                    }
+                    bufferPasswordList.Add(item);
+                }
+
+                passwordsListView.Items.Clear();
+                foreach (PasswordItem p in passwordList)
+                {
+                    passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
                 }
             }
             else
             {
-                currentGUID = passwordList[passwordsListView.SelectedIndex].id;
-                for (int i = 0; i < passwordList.Count;i++)
+                MessageBox.Show("Выберите запись");
+            }
+            
+        }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (passwordsListView.SelectedIndex >= 0)
+            {
+                if (isBuffer)
                 {
-                    if (passwordList[i].id.Equals(currentGUID))
+                    currentGUID = bufferPasswordList[passwordsListView.SelectedIndex].id;
+                    bufferPasswordList.RemoveAll(password => password.id.Equals(currentGUID));
+                    passwordList.RemoveAll(password => password.id.Equals(currentGUID));
+                    passwordsListView.Items.Clear();
+                    foreach (var password in bufferPasswordList)
                     {
-                        passwordList[i].login = currentLoginValue.Text;
-                        passwordList[i].password = currentPasswordValue.Password;
-                        passwordList[i].comment = currentCommentValue.Text;
+                        passwordsListView.Items.Add(password);
                     }
                 }
+                else
+                {
+                    currentGUID = passwordList[passwordsListView.SelectedIndex].id;
+                    passwordList.RemoveAll(password => password.id.Equals(currentGUID));
+                    passwordsListView.Items.Clear();
+                    foreach (var password in passwordList)
+                    {
+                        passwordsListView.Items.Add(password);
+                    }
+                }
+                
             }
-
-            bufferPasswordList.Clear();
-
-            foreach (PasswordItem item in passwordList)
+            else
             {
-                bufferPasswordList.Add(item);
-            }
-
-            passwordsListView.Items.Clear();
-            foreach (PasswordItem p in passwordList)
-            {
-                passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
+                MessageBox.Show("Выберите запись");
             }
         }
     }
