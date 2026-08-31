@@ -29,12 +29,16 @@ namespace PasswordManager
         public List<PasswordItem> passwordList = new List<PasswordItem>();
         public List<PasswordItem> bufferPasswordList = new List<PasswordItem>();
 
-        
+        string currentGUID = "";
+
+        bool isBuffer = false;
 
         UserSettings userSettings;
         public MainWindow()
         {
             InitializeComponent();
+
+            isBuffer = false;
 
             userSettings = new UserSettings(true, true, false, false,5);
 
@@ -393,6 +397,8 @@ namespace PasswordManager
             {
                 passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
             }
+
+            isBuffer = false;
         }
 
         private void search_Click(object sender, RoutedEventArgs e)
@@ -412,16 +418,28 @@ namespace PasswordManager
             {
                 passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
             }
+
+            isBuffer = true;
         }
 
         private void passwordsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             if (passwordsListView.SelectedIndex>=0)
             {
-                currentLoginValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].login;
-                currentCommentValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].comment;
-                currentPasswordValue.Password = bufferPasswordList[passwordsListView.SelectedIndex].password;
+                if (isBuffer)
+                {
+                    currentLoginValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].login;
+                    currentCommentValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].comment;
+                    currentPasswordValue.Password = bufferPasswordList[passwordsListView.SelectedIndex].password;
+                    currentGUID = bufferPasswordList[passwordsListView.SelectedIndex].id;
+                }
+                else
+                {
+                    currentLoginValue.Text = passwordList[passwordsListView.SelectedIndex].login;
+                    currentCommentValue.Text = passwordList[passwordsListView.SelectedIndex].comment;
+                    currentPasswordValue.Password = passwordList[passwordsListView.SelectedIndex].password;
+                    currentGUID = passwordList[passwordsListView.SelectedIndex].id;
+                }
             }
         }
 
@@ -449,7 +467,55 @@ namespace PasswordManager
 
         private void save_Click(object sender, RoutedEventArgs e)
         {
+            if (isBuffer)
+            {
+                currentGUID = bufferPasswordList[passwordsListView.SelectedIndex].id;
+                for (int i = 0; i < bufferPasswordList.Count;i++)
+                {
+                    if (bufferPasswordList[i].id.Equals(currentGUID))
+                    {
+                        bufferPasswordList[i].login = currentLoginValue.Text;
+                        bufferPasswordList[i].password = currentPasswordValue.Password;
+                        bufferPasswordList[i].comment = currentCommentValue.Text;
+                    }
+                }
 
+                for (int i = 0; i < passwordList.Count; i++)
+                {
+                    if (passwordList[i].id.Equals(currentGUID))
+                    {
+                        passwordList[i].login = currentLoginValue.Text;
+                        passwordList[i].password = currentPasswordValue.Password;
+                        passwordList[i].comment = currentCommentValue.Text;
+                    }
+                }
+            }
+            else
+            {
+                currentGUID = passwordList[passwordsListView.SelectedIndex].id;
+                for (int i = 0; i < passwordList.Count;i++)
+                {
+                    if (passwordList[i].id.Equals(currentGUID))
+                    {
+                        passwordList[i].login = currentLoginValue.Text;
+                        passwordList[i].password = currentPasswordValue.Password;
+                        passwordList[i].comment = currentCommentValue.Text;
+                    }
+                }
+            }
+
+            bufferPasswordList.Clear();
+
+            foreach (PasswordItem item in passwordList)
+            {
+                bufferPasswordList.Add(item);
+            }
+
+            passwordsListView.Items.Clear();
+            foreach (PasswordItem p in passwordList)
+            {
+                passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
+            }
         }
     }
 }
