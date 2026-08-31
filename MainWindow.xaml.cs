@@ -418,8 +418,30 @@ namespace PasswordManager
             {
                 currentLoginValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].login;
                 currentCommentValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].comment;
-                currentPasswordValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].password;
+                currentPasswordValue.Password = bufferPasswordList[passwordsListView.SelectedIndex].password;
             }
+        }
+
+        public void CopyToClipboard(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                try
+                {
+                    Clipboard.SetText(value);
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+                    // Occurs occasionally if the clipboard is locked by another process
+                    System.Threading.Thread.Sleep(10);
+                    Clipboard.SetText(value);
+                }
+            }
+        }
+
+        private void copyPassword_Click(object sender, RoutedEventArgs e)
+        {
+            CopyToClipboard(currentPasswordValue.Password);
         }
     }
 }

@@ -26,7 +26,7 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="59"/>
             <RowDefinition Height="22"/>
-            <RowDefinition Height="48"/>
+            <RowDefinition Height="22"/>
             <RowDefinition Height="28"/>
             <RowDefinition Height="45"/>
             <RowDefinition Height="45"/>
@@ -38,27 +38,22 @@
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="103*"></ColumnDefinition>
             <ColumnDefinition Width="213"></ColumnDefinition>
-            
-            
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="1" Grid.Column="3" Text="Детали записи" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Width="80" Margin="5,0,0,0"/>
 
         <TextBlock Grid.Row="2" Grid.Column="3" Text="Логин" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="currentLoginValue" Grid.Row="3" Grid.Column="3" Text="Значение логина" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="currentLoginValue" Grid.Row="3" Grid.Column="3" Text="" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
 
 
         <TextBlock Grid.Row="5" Grid.Column="3" Text="Комментарий"  Margin="5,0,0,0"/>
-        <TextBlock x:Name="currentCommentValue" Grid.Row="6" Grid.Column="3" Text="Текст комментария" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
-
-
+        <TextBlock x:Name="currentCommentValue" Grid.Row="6" Grid.Column="3" Text="" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
 
         <TextBlock Grid.Row="7" Grid.Column="3" Text="Пароль" Margin="5,0,0,0"/>
-        <TextBlock x:Name="currentPasswordValue" Grid.Row="8" Grid.Column="3" Text="Значение пароля" Margin="5,0,0,0" />
+        <PasswordBox x:Name="currentPasswordValue" Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Width="200"/>
 
-
-
-
+        <Button x:Name="copyPassword" Content="Скопировать" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="9" Grid.Column="3" Height="26" Width="200" VerticalAlignment="Center" Click="copyPassword_Click"/>
+        
         <Menu Background="{StaticResource menuBackColor}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="1,1,1,1">
 
             <MenuItem Header="Файл">
@@ -146,6 +141,8 @@ Background="{StaticResource buttonBackColor}" Width="200" Height="26" x:Name="ge
         <Button FontFamily="{StaticResource buttonFont}"
     Foreground="{StaticResource buttonFontColor}"
     Background="{StaticResource buttonBackColor}" x:Name="showAll" Height="26" Width="200" Grid.Column="2" Content="Отобразить всё" HorizontalAlignment="Center" Margin="5" Grid.Row="11" VerticalAlignment="Center" Click="showAll_Click"/>
+        
+
 
 
     </Grid>
