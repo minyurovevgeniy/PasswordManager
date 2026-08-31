@@ -411,5 +411,15 @@ namespace PasswordManager
                 passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
             }
         }
+
+        private void passwordsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (passwordsListView.SelectedIndex>=0)
+            {
+                currentLoginValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].login;
+                currentCommentValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].comment;
+                currentPasswordValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].password;
+            }
+        }
     }
 }
