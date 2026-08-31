@@ -29,6 +29,7 @@ namespace PasswordManager
         public List<PasswordItem> passwordList = new List<PasswordItem>();
         public List<PasswordItem> bufferPasswordList = new List<PasswordItem>();
 
+
         UserSettings userSettings;
         public MainWindow()
         {

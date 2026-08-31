@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PasswordManager"
         mc:Ignorable="d"
         Background="#CCAF78"
-        Title="MainWindow" Height="500" Width="850">
+        Title="MainWindow" Height="480" Width="850">
     <Window.Resources>
         <FontFamily x:Key="buttonFont">Verdana</FontFamily>
         <SolidColorBrush Color="White" x:Key="buttonFontColor" />
@@ -23,14 +23,12 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="45"/>
             <RowDefinition Height="28"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="59"/>
+            <RowDefinition Height="45"/>
             <RowDefinition Height="22"/>
             <RowDefinition Height="22"/>
             <RowDefinition Height="28"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -43,17 +41,24 @@
         <TextBlock Grid.Row="1" Grid.Column="3" Text="Детали записи" HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Width="80" Margin="5,0,0,0"/>
 
         <TextBlock Grid.Row="2" Grid.Column="3" Text="Логин" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="currentLoginValue" Grid.Row="3" Grid.Column="3" Text="" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="currentLoginValue" Grid.Column="3" HorizontalAlignment="Left" Margin="5,0,0,0"  Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
 
 
-        <TextBlock Grid.Row="5" Grid.Column="3" Text="Комментарий"  Margin="5,0,0,0"/>
-        <TextBlock x:Name="currentCommentValue" Grid.Row="6" Grid.Column="3" Text="" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.Row="4" Grid.Column="3" Text="Комментарий"  Margin="5,0,0,0"/>
+        <TextBox Width="200" Grid.Row="5" Grid.Column="3" x:Name="currentCommentValue"
+         Height="150"
+         AcceptsReturn="True"
+         TextWrapping="Wrap"
+         VerticalScrollBarVisibility="Auto"
+         HorizontalScrollBarVisibility="Disabled" />
 
-        <TextBlock Grid.Row="7" Grid.Column="3" Text="Пароль" Margin="5,0,0,0"/>
-        <PasswordBox x:Name="currentPasswordValue" Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Width="200"/>
+        <TextBlock Grid.Row="6" Grid.Column="3" Text="Пароль" Margin="5,0,0,0"/>
+        <PasswordBox x:Name="currentPasswordValue" Grid.Row="7" Grid.Column="3" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Width="200"/>
 
-        <Button x:Name="copyPassword" Content="Скопировать" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="9" Grid.Column="3" Height="26" Width="200" VerticalAlignment="Center" Click="copyPassword_Click"/>
-        
+        <Button x:Name="copyPassword" Content="Скопировать пароль" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="9" Grid.Column="3" Height="26" Width="200" VerticalAlignment="Center" Click="copyPassword_Click"/>
+
+        <Button x:Name="save" Grid.Column="3" Content="Сохранить запись" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="10" VerticalAlignment="Center" Height="26" Width="200"/>
+
         <Menu Background="{StaticResource menuBackColor}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="1,1,1,1">
 
             <MenuItem Header="Файл">
@@ -142,6 +147,7 @@ Background="{StaticResource buttonBackColor}" Width="200" Height="26" x:Name="ge
     Foreground="{StaticResource buttonFontColor}"
     Background="{StaticResource buttonBackColor}" x:Name="showAll" Height="26" Width="200" Grid.Column="2" Content="Отобразить всё" HorizontalAlignment="Center" Margin="5" Grid.Row="11" VerticalAlignment="Center" Click="showAll_Click"/>
         
+
 
 
 
