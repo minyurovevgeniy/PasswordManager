@@ -551,7 +551,10 @@ namespace PasswordManager
                         passwordsListView.Items.Add(password);
                     }
                 }
-                
+                currentLoginValue.Text = "";
+                currentCommentValue.Text = "";
+                currentPasswordValue.Password = "";
+
             }
             else
             {
