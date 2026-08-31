@@ -29,6 +29,7 @@ namespace PasswordManager
         public List<PasswordItem> passwordList = new List<PasswordItem>();
         public List<PasswordItem> bufferPasswordList = new List<PasswordItem>();
 
+        
 
         UserSettings userSettings;
         public MainWindow()
@@ -415,6 +416,7 @@ namespace PasswordManager
 
         private void passwordsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (passwordsListView.SelectedIndex>=0)
             {
                 currentLoginValue.Text = bufferPasswordList[passwordsListView.SelectedIndex].login;
@@ -443,6 +445,11 @@ namespace PasswordManager
         private void copyPassword_Click(object sender, RoutedEventArgs e)
         {
             CopyToClipboard(currentPasswordValue.Password);
+        }
+
+        private void save_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -29,6 +29,8 @@
             <RowDefinition Height="28"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -55,9 +57,17 @@
         <TextBlock Grid.Row="6" Grid.Column="3" Text="Пароль" Margin="5,0,0,0"/>
         <PasswordBox x:Name="currentPasswordValue" Grid.Row="7" Grid.Column="3" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Width="200"/>
 
-        <Button x:Name="copyPassword" Content="Скопировать пароль" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="9" Grid.Column="3" Height="26" Width="200" VerticalAlignment="Center" Click="copyPassword_Click"/>
+        <Button 
+            FontFamily="{StaticResource buttonFont}"
+        Foreground="{StaticResource buttonFontColor}"
+        Background="{StaticResource buttonBackColor}"
+            x:Name="copyPassword" Content="Скопировать пароль" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="9" Grid.Column="3" Height="26" Width="200" VerticalAlignment="Center" Click="copyPassword_Click"/>
 
-        <Button x:Name="save" Grid.Column="3" Content="Сохранить запись" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="10" VerticalAlignment="Center" Height="26" Width="200"/>
+        <Button
+            FontFamily="{StaticResource buttonFont}"
+    Foreground="{StaticResource buttonFontColor}"
+    Background="{StaticResource buttonBackColor}"
+            x:Name="save" Grid.Column="3" Content="Сохранить запись" HorizontalAlignment="Center" Margin="5,0,0,0" Grid.Row="10" VerticalAlignment="Center" Height="26" Width="200" Click="save_Click"/>
 
         <Menu Background="{StaticResource menuBackColor}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="1,1,1,1">
 
