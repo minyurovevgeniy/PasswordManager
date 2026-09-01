@@ -40,191 +40,50 @@ namespace PasswordManager
 
             isBuffer = false;
 
-            userSettings = new UserSettings(true, true, false, false,5);
-
-            // Initialize the collection
-            MyDynamicItems = new ObservableCollection<string>();
-
-            // Dynamically add items anywhere in your logic
-            MyDynamicItems.Add("Добавить запись");
-            MyDynamicItems.Add("Изменение логина");
-            MyDynamicItems.Add("Изменение пароля");
-            MyDynamicItems.Add("Изменение комментария");
-            MyDynamicItems.Add("Удаление записи");
-            // Set the DataContext to this class for binding
-            mode.ItemsSource = MyDynamicItems;
-
-            
+            userSettings = new UserSettings(true, true, false, false,5);         
         }
 
         private void action_Click(object sender, RoutedEventArgs e)
         {
-            // Добавить запись
-            if (mode.SelectedIndex == 0)
+            if (Regex.Replace(loginTextBox.Text, @"\s+", "").Equals(""))
             {
-                if (Regex.Replace(loginTextBox.Text, @"\s+", "").Equals(""))
-                {
-                    MessageBox.Show("Введите логин");
-                    return;
-                }
-
-                if (Regex.Replace(passwordBox.Password, @"\s+", "").Equals(""))
-                {
-                    MessageBox.Show("Введите пароль");
-                    return;
-                }
-
-                if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
-                {
-                    MessageBox.Show("Введите комментарий");
-                    return;
-                }
-
-                if (passwordList.Any(x => x.login == loginTextBox.Text))
-                {
-                    MessageBox.Show("Такой логин уже есть");
-                    return;
-                }
-                else
-                {
-                    passwordList.Add(new PasswordItem {login = loginTextBox.Text, comment = commentTextBox.Text, password = passwordBox.Password });
-
-                    passwordList = passwordList.OrderBy(p => p.login).ToList();
-
-                    passwordsListView.Items.Clear();
-
-                    foreach (var password in passwordList)
-                    {
-                        passwordsListView.Items.Add(password);
-                    }
-
-                    loginTextBox.Text = "";
-                    commentTextBox.Text = "";
-                    passwordBox.Password = "";
-                }
-                
-            }
-            // Изменение логина
-            if (mode.SelectedIndex == 1)
-            {
-                if (passwordsListView.SelectedIndex >= 0)
-                {
-                    if (Regex.Replace(loginTextBox.Text, @"\s+", "").Equals(""))
-                    {
-                        MessageBox.Show("Введите логин");
-                        return;
-                    }
-
-                    passwordList[passwordsListView.SelectedIndex].login = loginTextBox.Text;
-
-                    passwordsListView.Items.Clear();
-
-                    foreach (var password in passwordList)
-                    {
-                        passwordsListView.Items.Add(password);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Выберите запись");
-                }
-            }
-            // Изменение пароля
-            if (mode.SelectedIndex == 2)
-            {
-                if (passwordsListView.SelectedIndex >= 0)
-                {
-                    if (Regex.Replace(passwordBox.Password, @"\s+", "").Equals(""))
-                    {
-                        MessageBox.Show("Введите пароль");
-                        return;
-                    }
-
-                    passwordList[passwordsListView.SelectedIndex].password = passwordBox.Password;
-                    passwordsListView.Items.Clear();
-
-                    foreach (var password in passwordList)
-                    {
-                        passwordsListView.Items.Add(password);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Выберите запись");
-                }
-            }
-            // Изменение комментария
-            if (mode.SelectedIndex == 3)
-            {
-                if (passwordsListView.SelectedIndex >= 0)
-                {
-                    if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
-                    {
-                        MessageBox.Show("Введите комментарий");
-                        return;
-                    }
-
-                    passwordList[passwordsListView.SelectedIndex].comment = commentTextBox.Text;
-
-                    passwordsListView.Items.Clear();
-
-                    foreach (var password in passwordList)
-                    {
-                        passwordsListView.Items.Add(password);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Выберите запись");
-                }
+                MessageBox.Show("Введите логин");
+                return;
             }
 
-            
-            // Удаление записи
-            if (mode.SelectedIndex == 4)
+            if (Regex.Replace(passwordBox.Password, @"\s+", "").Equals(""))
             {
-                if (passwordsListView.SelectedIndex >= 0)
-                {
-                    passwordList.RemoveAt(passwordsListView.SelectedIndex);
-                    passwordsListView.Items.Clear();
+                MessageBox.Show("Введите пароль");
+                return;
+            }
 
-                    foreach (var password in passwordList)
-                    {
-                        passwordsListView.Items.Add(password);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Выберите запись");
-                }
-            }
-            if (mode.SelectedIndex < 0)
+            if (Regex.Replace(commentTextBox.Text, @"\s+", "").Equals(""))
             {
-                MessageBox.Show("Выберите режим работы");
+                MessageBox.Show("Введите комментарий");
+                return;
             }
-        }
 
-        private void mode_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (mode.SelectedIndex == 0)
+            if (passwordList.Any(x => x.login == loginTextBox.Text))
             {
-                action.Content = "Добавить запись";
+                MessageBox.Show("Такой логин уже есть");
+                return;
             }
-            else if (mode.SelectedIndex == 1)
+            else
             {
-                action.Content = "Изменить логин";
-            }
-            else if (mode.SelectedIndex == 2)
-            {
-                action.Content = "Изменить пароль";
-            }
-            else if (mode.SelectedIndex == 3)
-            {
-                action.Content = "Изменить комментарий";
-            }
-            else if (mode.SelectedIndex == 4)
-            {
-                action.Content = "Удалить запись";
+                passwordList.Add(new PasswordItem { login = loginTextBox.Text, comment = commentTextBox.Text, password = passwordBox.Password });
+
+                passwordList = passwordList.OrderBy(p => p.login).ToList();
+
+                passwordsListView.Items.Clear();
+
+                foreach (var password in passwordList)
+                {
+                    passwordsListView.Items.Add(password);
+                }
+
+                loginTextBox.Text = "";
+                commentTextBox.Text = "";
+                passwordBox.Password = "";
             }
         }
 
@@ -325,17 +184,6 @@ namespace PasswordManager
             {
                 userSettings = SetWindow.settings;
             }
-        }
-
-        private void passwordTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-
-        }
-
-        private void PasswordBox_TextInput(object sender, TextCompositionEventArgs e)
-        {
-            
         }
 
         private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
