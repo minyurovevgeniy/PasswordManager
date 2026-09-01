@@ -129,10 +129,18 @@ namespace PasswordManager
             saveFileDialog.DefaultExt = "json";
             saveFileDialog.Title = "Сохранить пароли";
 
-            if (saveFileDialog.ShowDialog()==true)
+            try 
             {
-                CryptographyClass.EncryptAndSave(passwordList, saveFileDialog.FileName, hashBytes, arrayIV);
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    CryptographyClass.EncryptAndSave(passwordList, saveFileDialog.FileName, hashBytes, arrayIV);
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ошибка шифрования");
+            }
+            
         }
 
         private void openMenuItem_Click(object sender, RoutedEventArgs e)
@@ -162,13 +170,20 @@ namespace PasswordManager
                 byte[] inputBytes = Encoding.UTF8.GetBytes(masterPassword.Result);
                 // Compute the hash
                 byte[] hashBytes = SHA256.HashData(inputBytes);
-                passwordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);
-                bufferPasswordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);
-                
-                passwordsListView.Items.Clear();
-                foreach (PasswordItem p in bufferPasswordList)
+                try
                 {
-                    passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment});
+                    passwordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);
+                    bufferPasswordList = CryptographyClass.LoadAndDecrypt<PasswordItem>(openFileDialog.FileName, hashBytes);
+
+                    passwordsListView.Items.Clear();
+                    foreach (PasswordItem p in bufferPasswordList)
+                    {
+                        passwordsListView.Items.Add(new PasswordItem { login = p.login, password = p.password, comment = p.comment });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка расшифрования");
                 }
             }
         }
