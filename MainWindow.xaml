@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PasswordManager"
         mc:Ignorable="d"
         Background="#CCAF78"
-        Title="MainWindow" Height="420" Width="850">
+        Title="MainWindow" Height="430" Width="850">
     <Window.Resources>
         <FontFamily x:Key="buttonFont">Verdana</FontFamily>
         <SolidColorBrush Color="White" x:Key="buttonFontColor" />
@@ -106,7 +106,7 @@ Background="{StaticResource buttonBackColor}" x:Name="search"  Click="search_Cli
 
 
         <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="8" Text="Пароль" VerticalAlignment="Center" Height="16" Width="41" Margin="5,0,0,0"/>
-        <PasswordBox x:Name="passwordBox" Grid.Column="1" Width="200" Height="24" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" TextInput="PasswordBox_TextInput" PasswordChanged="passwordBox_PasswordChanged"/>
+        <PasswordBox x:Name="passwordBox" Grid.Column="1" Width="200" Height="24" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" PasswordChanged="passwordBox_PasswordChanged"/>
         <Button  
 Foreground="{StaticResource buttonFontColor}"
 Background="{StaticResource buttonBackColor}" Width="200" Height="26" x:Name="generate" Content="Генерировать пароль" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="9" Click="generate_Click" Grid.Column="1"/>
